@@ -1,0 +1,35 @@
+.cart .cart-item {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.cart .cart-item .description {
+    margin-left: 1.4rem;
+    margin-top: 0.8rem;
+}
+
+.cart a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1rem;
+    color: black;
+    font-weight: 600;
+}
+
+.cart .description div button {
+    padding: 3px 10px;
+}
+
+.cart .button-delete {
+    position: absolute;
+    border: 0;
+    background-color: transparent;
+    top: 0.8rem;
+    right: 0;
+}
+
+.cart h6 {
+    margin: 2px 0;
+}
+

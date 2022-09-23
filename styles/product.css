@@ -1,0 +1,62 @@
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    justify-items: center;
+    grid-gap: 10px;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.products .card {
+    margin: 10px 0;
+}
+
+.products .card-img-top {
+    height: 250px;
+    width: 100%;
+}
+
+.products .card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.products .card-text {
+    height: 70px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+
+.row.detail-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.detail-page .content {
+    display: flex;
+    flex-direction: row;
+}
+
+.detail-page .content .images {
+    width: 50%;
+}
+
+.detail-page .description.mt-3 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.detail-page .img-thumbnail.active {
+    border-color: orangered;
+    padding: 3px;
+}
+
+.detail-page button {
+    width: fit-content;
+    padding: 5px 20px;
+}
