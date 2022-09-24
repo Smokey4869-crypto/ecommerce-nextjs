@@ -90,7 +90,6 @@ const ProductItem = ({ product }: { product: Product }) => {
                             userLink()
                         }
                     </div>
-                    {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
                 </div>
         </div>
     )

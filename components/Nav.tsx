@@ -75,13 +75,13 @@ const Nav = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="/">SHOP</a>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" aria-hidden>
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
 
       <div className="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul className="navbar-nav p-1">
-          <li className="nav-item">
+          <li className="nav-item position-relative">
             <Link href='/cart'>
               <a className={`nav-link ${isActive('/cart')}`}>
                 <ShoppingCartIcon />
@@ -90,9 +90,13 @@ const Nav = () => {
                     padding: '3px 6px',
                     background: '#ed143dc2',
                     borderRadius: '50%',
-                    top: "15px",
-                    right: "130px",
+                    top: "0px",
+                    right: "35px",
                     color: 'white',
+                    width: '18px',
+                    height: '18px',
+                    paddingTop: "1.5px",
+                    paddingLeft: '6px',
                     fontSize: '10px'
                   }}>
                   {cart.length}

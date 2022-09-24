@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "store/reducers.js", "store/globalState.js", "store/actions.js", "components/Modal.jsx", "components/Modal.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "store/reducers.js", "store/globalState.js", "store/actions.js", "components/PayPalButton.jsx", "components/Modal.jsx", "components/Modal.jsx"],
   "exclude": ["node_modules"]
 }

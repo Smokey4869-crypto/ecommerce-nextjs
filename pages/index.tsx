@@ -6,7 +6,13 @@ import ProductList from '../components/ProductList'
 
 const Home = (props : InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [ products, setProducts ] = useState(props.products)
-  console.log(products)
+  // console.log(products)
+  const test = async () => {
+    const res = await getData(`product/632b4993d896fd4242f4242e`)
+    console.log(res)
+  }
+
+  test()
 
   return (
     <div>

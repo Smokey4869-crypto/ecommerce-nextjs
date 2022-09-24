@@ -76,7 +76,17 @@ const CartItem = ({ item, dispatch, cart, handleShow }: { item: CartItem, dispat
 
                 <div>
                     <button type='button' className="button-delete" data-toggle="modal" data-target="#exampleModal"
-                        onClick={handleShow}
+                        onClick={() => {
+                            handleShow()
+                            dispatch({
+                                type: 'ADD_MODAL',
+                                payload: {
+                                    data: cart, 
+                                    id: item._id,
+                                    title: item.title
+                                }
+                            })
+                        }}
                     >
                         <DeleteOutlineOutlinedIcon />
                     </button>

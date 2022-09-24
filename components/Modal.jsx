@@ -7,22 +7,29 @@ import { deleteItem } from '../store/Actions'
 
 const ModalExample = ({ show, handleClose }) => {
     const { state, dispatch } = useContext(DataContext)
-    
-    const handleSubmit = () => {
+    const { modal } = state
 
+    const handleSubmit = () => {
+        dispatch(deleteItem(modal.data, modal.id, 'ADD_CART'))
+        dispatch({
+            type: 'ADD_MODAL',
+            payload: {}
+        })
+        handleClose()
     }
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>{modal.title}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Body>Do you want to remove this item from your cart?</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Cancel
                 </Button>
                 <Button variant="primary" onClick={handleSubmit}>
-                    Save Changes
+                    Yes
                 </Button>
             </Modal.Footer>
         </Modal>

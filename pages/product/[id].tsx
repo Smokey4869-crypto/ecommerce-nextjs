@@ -87,7 +87,7 @@ const Product = (props: InferGetServerSidePropsType<typeof getServerSideProps>) 
 export async function getServerSideProps({ params }: GetServerSidePropsContext) {
   const id = params?.id
   const res = await getData(`product/${id}`)
-  console.log(res)
+  // console.log(res)
 
   return {
     props: {

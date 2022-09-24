@@ -5,6 +5,7 @@ import UserCart from '../components/Cart'
 import Link from 'next/link'
 import { getData } from '../utils/fetchData'
 import Modal from '../components/Modal'
+import PayPalBtn from '../components/PayPalButton'
 
 
 interface CartItem {
@@ -29,6 +30,9 @@ const cart = () => {
   const { cart, auth } = state
 
   const [total, setTotal] = useState(0)
+  const [address, setAddress] = useState("")
+  const [phone, setPhone] = useState("")
+  const [payment, setPayment] = useState(false)
 
   useEffect(() => {
     const getTotal = () => {
@@ -45,14 +49,14 @@ const cart = () => {
   useEffect(() => {
     const cartLocal = JSON.parse(localStorage.getItem('__cart') || "")
     if (cartLocal && cart.length > 0) {
-      let newArr: CartItem[] = []
+      let newArr: any[] = []
       const updateCart = async () => {
         for (const item of cartLocal) {
           const res = await getData(`product/${item._id}`)
           const product = res.product
           if (product.inStock > 0) {
             newArr.push({
-              ...product,
+              ...product, 
               quantity: item.quantity > product.inStock ? 1 : item.quantity
             })
           }
@@ -68,10 +72,22 @@ const cart = () => {
     }
   }, [])
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  const handlePayment = () => {
+    if (!address || !phone) {
+      return dispatch({
+        type: 'NOTIFY',
+        payload: {
+          error: 'Please add your address and phone number.'
+        }
+      })
+    } 
+    setPayment(true)
+  }
 
   return (
     <div>
@@ -101,7 +117,7 @@ const cart = () => {
               </div>
               : <div className='row'>
                 {
-                  <UserCart cart={cart} dispatch={dispatch} handleShow={handleShow}/>
+                  <UserCart cart={cart} dispatch={dispatch} handleShow={handleShow} />
                 }
                 <div className="col-md-4 my-3 text-uppercase text-secondary ml-3">
                   <form action="">
@@ -111,28 +127,40 @@ const cart = () => {
                       type="text"
                       name='address'
                       id='address'
-                      className='form-control mb-2' />
+                      value={address}
+                      className='form-control mb-2'
+                      onChange={e => setAddress(e.target.value)} />
 
                     <label htmlFor="phone">Phone Number</label>
                     <input
                       type="text"
                       name='phone'
                       id='phone'
-                      className='form-control mb-2' />
+                      value={phone}
+                      className='form-control mb-2'
+                      onChange={e => setPhone(e.target.value)} />
 
-                    <h3>Total: <span className='text-info'>{total}</span></h3>
+                    <h3>Total: <span className='text-info'>${total}</span></h3>
 
-                    <Link href={auth.user ? "#" : "/signin"}>
-                      <a className='btn btn-dark my-2'>Proceed with payment</a>
-                    </Link>
+                    {
+                      payment ?
+                        <PayPalBtn 
+                          total={total}
+                          address={address}
+                          phone={phone} 
+                        />
+                        : <Link href={auth.user ? "#!" : "/signin"}>
+                          <a 
+                            className='btn btn-dark my-2'
+                            onClick={handlePayment}  
+                          >Proceed with payment</a>
+                        </Link>
+                    }
                   </form>
                 </div>
               </div>
           }
         </div>
-
-
-
       </div>
     </div>
   )
