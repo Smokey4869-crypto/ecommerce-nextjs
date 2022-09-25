@@ -7,12 +7,7 @@ import ProductList from '../components/ProductList'
 const Home = (props : InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [ products, setProducts ] = useState(props.products)
   // console.log(products)
-  const test = async () => {
-    const res = await getData(`product/632b4993d896fd4242f4242e`)
-    console.log(res)
-  }
-
-  test()
+  // console.log("hello", Buffer.from("478646783979473:R6U7eoR6sn3PuSYuhrJf75RaiXQ").toString('base64'))
 
   return (
     <div>

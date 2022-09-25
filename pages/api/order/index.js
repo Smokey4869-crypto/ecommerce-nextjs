@@ -10,6 +10,9 @@ export default async (req, res) => {
         case "POST":
             await createOrder(req, res)
             break;
+        case "GET": 
+            await getOrders(req, res)
+            break;
     }
 }
 
@@ -51,4 +54,24 @@ const sold = async (id, quantity, oldInStock, oldSold) => {
             sold: quantity + oldSold
         }
     )
+}
+
+const getOrders = async (req, res) => {
+    try {
+        const result = await auth(req, res)
+
+        let orders 
+
+        if (result.role !== "admin") {
+            orders = await Order.find({user: result.id}).populate("user", "-password")
+        } else {
+            orders = await Order.find().populate("user", "-password")
+        }
+
+        res.json({orders})
+    } catch(err) {
+        return res.status(500).json({
+            error: err.message
+        })   
+    }
 }

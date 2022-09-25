@@ -104,7 +104,7 @@ const Signin = () => {
                         onChange={handleChange}/>
                 </div>
                 <button type="submit" className="btn btn-dark w-100">Login</button>
-                <p className='my-2'>You don't have an account? <Link href="/signup" style={{ color: 'crimson' }}><a>Register</a></Link></p>
+                <p className='my-2'>You don't have an account? <Link href="/register" style={{ color: 'crimson' }}><a>Register</a></Link></p>
             </form>
         </div>
     )

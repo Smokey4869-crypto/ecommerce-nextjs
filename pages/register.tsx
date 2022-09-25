@@ -118,7 +118,7 @@ const Register = () => {
                         onChange={handleChange} />
                 </div>
                 <button type="submit" className="btn btn-dark w-100">Register</button>
-                <p className='my-2'>Already have an account? <Link href="/signup" style={{ color: 'crimson' }}><a>Login Now</a></Link></p>
+                <p className='my-2'>Already have an account? <Link href="/signin" style={{ color: 'crimson' }}><a>Login Now</a></Link></p>
             </form>
         </div>
     )

@@ -55,28 +55,38 @@ export const DataProvider = ({children}) => {
         localStorage.setItem('__cart', JSON.stringify(cart))
     }, [cart])
 
-    // useEffect(() => {
-    //     if(auth.token){
-    //         getData('order', auth.token)
-    //         .then(res => {
-    //             if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
-                
-    //             dispatch({type: 'ADD_ORDERS', payload: res.orders})
-    //         })
+    useEffect(() => {
+        if(auth.token){
+            getData('order', auth.token)
+            .then(res => {
+                console.log("hello", res)
 
-    //         if(auth.user.role === 'admin'){
-    //             getData('user', auth.token)
-    //             .then(res => {
-    //                 if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
+                if(res.err) {
+                    return dispatch({
+                        type: 'NOTIFY', 
+                        payload: {error: res.err}
+                    })
+                }
                 
-    //                 dispatch({type: 'ADD_USERS', payload: res.users})
-    //             })
-    //         }
-    //     }else{
-    //         dispatch({type: 'ADD_ORDERS', payload: []})
-    //         dispatch({type: 'ADD_USERS', payload: []})
-    //     }
-    // },[auth.token])
+                dispatch({
+                    type: 'ADD_ORDERS', 
+                    payload: res.orders
+                })
+            })
+
+            if(auth.user.role === 'admin'){
+                getData('user', auth.token)
+                .then(res => {
+                    if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
+                
+                    dispatch({type: 'ADD_USERS', payload: res.users})
+                })
+            }
+        }else{
+            dispatch({type: 'ADD_ORDERS', payload: []})
+            dispatch({type: 'ADD_USERS', payload: []})
+        }
+    },[auth.token])
 
     return(
         <DataContext.Provider value={{state, dispatch}}>
