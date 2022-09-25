@@ -4,9 +4,9 @@ import { DataContext } from '../store/globalState'
 import { updateItem } from '../store/Actions'
 import { patchData, postData } from '../utils/fetchData'
 
-const PayPalBtn = ({total, address, phone}) => {
+const PayPalBtn = ({order}) => {
     const { state, dispatch } = useContext(DataContext)
-    const { auth, cart } = state
+    const { auth, orders } = state
 
     return (
         <div>
@@ -16,7 +16,7 @@ const PayPalBtn = ({total, address, phone}) => {
                         purchase_units: [
                             {
                                 amount: {
-                                    value: total
+                                    value: order.total
                                 }
                             }
                         ]
@@ -31,9 +31,7 @@ const PayPalBtn = ({total, address, phone}) => {
                         }
                     })
                     
-                    postData('order', {
-                        address, phone, cart, total
-                    }, auth.token)
+                    patchData(`order/${order._id}`, null, auth.token)
                     .then(res => {
                         if (res.error) {
                             return dispatch({
@@ -43,10 +41,12 @@ const PayPalBtn = ({total, address, phone}) => {
                                 }
                             })
                         }
-                        dispatch({
-                            type: 'ADD_CART',
-                            payload: []
-                        })
+
+                        dispatch(updateItem(orders, order._id, {
+                            ...order,
+                            paid: true,
+                            dateOfPayment: new Date().toISOString()
+                        }, 'ADD_ORDERS'))
 
                         return dispatch({
                             type: 'NOTIFY',

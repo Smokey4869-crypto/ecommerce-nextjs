@@ -5,6 +5,7 @@ import { DataContext } from '../store/globalState'
 import validate from '../utils/validate'
 import { patchData, postData } from '../utils/fetchData'
 import { uploadImage } from '../utils/uploadImage'
+import Link from 'next/link'
 
 interface Order {
     _id: string,
@@ -235,7 +236,7 @@ const Profile = () => {
                         onClick={handleSubmit}
                     >Update profile</button>
                 </div>
-                <div className="col-md-6 ml-5">
+                <div className="col-md-6 ml-5 table-responsive">
                     <h3 className='text-uppercase'>Orders</h3>
 
                     <div className="my-3">
@@ -259,11 +260,30 @@ const Profile = () => {
                                 {
                                     orders?.map((item: Order) => (
                                         <tr>
-                                            <td className="p-2">{orders._id}</td>
-                                            <td className="p-2">{orders.createdAt}</td>
-                                            <td className="p-2">{orders.total}</td>
-                                            <td className="p-2">{orders.delivered}</td>
-                                            <td className="p-2">action</td>
+                                            <td className="p-2">
+                                                <Link href={`/order/${item._id}`}>
+                                                    <a>{item._id}</a>
+                                                </Link></td>
+                                            <td className="p-2">
+                                                {
+                                                    new Date(item.createdAt).toLocaleDateString()
+                                                }
+                                            </td>
+                                            <td className="p-2">{item.total}</td>
+                                            <td className="p-2">
+                                                {
+                                                    item.delivered
+                                                        ? "Delivered"
+                                                        : "Shipping"
+                                                }
+                                            </td>
+                                            <td className="p-2">
+                                                {
+                                                    item.delivered
+                                                        ? "Delivered"
+                                                        : "Shipping"
+                                                }
+                                            </td>
                                         </tr>
                                     ))
                                 }
